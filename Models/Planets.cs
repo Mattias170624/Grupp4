@@ -10,12 +10,21 @@ public class Planets {
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
-    public string name { get; set; } = null!;
-    public int orderFromSun { get; set; }
-    public bool hasRings { get; set; }
+    [BsonElement("name")]
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = null!;
+
+    [BsonElement("orderFromSun")]
+    [JsonPropertyName("orderFromSun")]
+    public int OrderFromSun { get; set; }
+
+    [BsonElement("hasRings")]
+    [JsonPropertyName("hasRings")]
+    public bool HasRings { get; set; }
+
     public List<string> mainAtmoshpere { get; set; } = null!;
 
     [BsonElement("surfaceTemperatureC")]
     [JsonPropertyName("surfaceTemperatureC")]
-    public List<string> surfaceTemperatureC { get; set; } = null!;
+    public List<string> SurfaceTemperatureC { get; set; } = null!;
 }

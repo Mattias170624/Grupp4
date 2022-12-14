@@ -9,32 +9,32 @@ namespace Grupp4.Controllers;
 [Route("api/[controller]")]
 public class PlanetController: Controller {
 
-    private readonly PlanetDBService _mongoDBService;
+    private readonly PlanetDBService _planetDBService;
 
-    public PlanetController(PlanetDBService mongoDBService) {
-        _mongoDBService = mongoDBService;  
+    public PlanetController(PlanetDBService planetDBService) {
+        _planetDBService = planetDBService;  
     }
 
     [HttpGet]
     public async Task<List<Planets>> Get() {
-        return await _mongoDBService.GetAsync();
+        return await _planetDBService.GetAsync();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Planets playlist) {
-        await _mongoDBService.CreateAsync(playlist);
-        return CreatedAtAction(nameof(Get), new {id = playlist.Id}, playlist);
+    public async Task<IActionResult> Post([FromBody] Planets planets) {
+        await _planetDBService.CreateAsync(planets);
+        return CreatedAtAction(nameof(Get), new {id = planets.Id}, planets);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> AddToPlaylist(string id, [FromBody] string movieId) {
-        await _mongoDBService.AddToPlaylistAsync(id, movieId);
+    public async Task<IActionResult> AddToPlanets(string id, [FromBody] string planetId) {
+        await _planetDBService.AddToPlanetsAsync(id, planetId);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id) {
-        await _mongoDBService.DeleteAsync(id);
+        await _planetDBService.DeleteAsync(id);
         return NoContent();
     }
 }

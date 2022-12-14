@@ -7,33 +7,33 @@ namespace Grupp4.Services;
 
 public class PlanetDBService {
     
-    private readonly IMongoCollection<Planets> _playlistCollection;
+    private readonly IMongoCollection<Planets> _planetsCollection;
 
-    public PlanetDBService(IOptions<PlanetDBSettings> mongoDBSettings) {
-        MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
-        IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-        _playlistCollection = database.GetCollection<Planets>(mongoDBSettings.Value.CollectionName);
+    public PlanetDBService(IOptions<PlanetDBSettings> planetDBSettings) {
+        MongoClient client = new MongoClient(planetDBSettings.Value.ConnectionURI);
+        IMongoDatabase database = client.GetDatabase(planetDBSettings.Value.DatabaseName);
+        _planetsCollection = database.GetCollection<Planets>(planetDBSettings.Value.CollectionName);
     }
 
     public async Task CreateAsync(Planets planets) {
-        await _playlistCollection.InsertOneAsync(planets);
+        await _planetsCollection.InsertOneAsync(planets);
         return;
     }
 
     public async Task<List<Planets>> GetAsync() {
-        return await _playlistCollection.Find(new BsonDocument()).ToListAsync();
+        return await _planetsCollection.Find(new BsonDocument()).ToListAsync();
     }
 
-    public async Task AddToPlaylistAsync(string id, string movieId) {
+    public async Task AddToPlanetsAsync(string id, string movieId) {
         FilterDefinition<Planets> filter = Builders<Planets>.Filter.Eq("Id", id);
         UpdateDefinition<Planets> update = Builders<Planets>.Update.AddToSet<string>("movieId", movieId);
-        await _playlistCollection.UpdateOneAsync(filter, update);
+        await _planetsCollection.UpdateOneAsync(filter, update);
         return;
     }
 
     public async Task DeleteAsync(string id) {
         FilterDefinition<Planets> filter = Builders<Planets>.Filter.Eq("Id", id);
-        await _playlistCollection.DeleteOneAsync(filter);
+        await _planetsCollection.DeleteOneAsync(filter);
         return;
     }
 }
