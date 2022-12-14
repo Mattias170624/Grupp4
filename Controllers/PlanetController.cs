@@ -23,12 +23,12 @@ public class PlanetController: Controller {
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Planets planets) {
         await _planetDBService.CreateAsync(planets);
-        return CreatedAtAction(nameof(Get), new {id = planets.Id}, planets);
+        return CreatedAtAction(nameof(Get), new {id = planets._id}, planets);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> AddToPlanets(string id, [FromBody] string planetId) {
-        await _planetDBService.AddToPlanetsAsync(id, planetId);
+        await _planetDBService.AddToPlanetsAsync(id, id);
         return NoContent();
     }
 
