@@ -7,21 +7,21 @@ namespace Grupp4.Controllers;
 
 [Controller]
 [Route("api/[controller]")]
-public class PlaylistController: Controller {
+public class PlanetController: Controller {
 
-    private readonly MongoDBService _mongoDBService;
+    private readonly PlanetDBService _mongoDBService;
 
-    public PlaylistController(MongoDBService mongoDBService) {
+    public PlanetController(PlanetDBService mongoDBService) {
         _mongoDBService = mongoDBService;  
     }
 
     [HttpGet]
-    public async Task<List<Playlist>> Get() {
+    public async Task<List<Planets>> Get() {
         return await _mongoDBService.GetAsync();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Playlist playlist) {
+    public async Task<IActionResult> Post([FromBody] Planets playlist) {
         await _mongoDBService.CreateAsync(playlist);
         return CreatedAtAction(nameof(Get), new {id = playlist.Id}, playlist);
     }
