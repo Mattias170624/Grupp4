@@ -28,8 +28,8 @@ public class PlaylistController: Controller {
 
     [HttpPut("{id}")]
 
-    public async Task<ActionResult> AddToPlaylist(string id, [FromBody] string movieIds) {
-        await _mongoDbService.AddToPlaylistAsync(id, movieIds);
+    public async Task<ActionResult> AddToPlaylist(string id, [FromBody] string Items) {
+        await _mongoDbService.AddToPlaylistAsync(id, Items);
         return NoContent();
     }
 
