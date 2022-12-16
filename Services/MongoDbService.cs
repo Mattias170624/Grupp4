@@ -27,10 +27,10 @@ public class MongoDbService
         return await _playlistCollection.Find(new BsonDocument()).ToListAsync();
     }
 
-    public async Task AddToPlaylistAsync(string id, string movieIds)
+    public async Task AddToPlaylistAsync(string id, string Items)
     {
         FilterDefinition<Playlist> filter = Builders<Playlist>.Filter.Eq("Id", id);
-        UpdateDefinition<Playlist> update = Builders<Playlist>.Update.AddToSet("movieIds", movieIds); 
+        UpdateDefinition<Playlist> update = Builders<Playlist>.Update.AddToSet("items", Items); 
         await _playlistCollection.UpdateOneAsync(filter, update);
         return;
     }
