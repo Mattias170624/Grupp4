@@ -27,6 +27,12 @@ public class MongoDbService
         return await _playlistCollection.Find(new BsonDocument()).ToListAsync();
     }
 
+    public async Task<Playlist> GetAsyncId(string id)
+    {
+        FilterDefinition<Playlist> filter = Builders<Playlist>.Filter.Eq("Id", id);
+        return await _playlistCollection.Find(filter).FirstOrDefaultAsync();
+    }
+
     public async Task AddToPlaylistAsync(string id, string Items)
     {
         FilterDefinition<Playlist> filter = Builders<Playlist>.Filter.Eq("Id", id);
