@@ -26,6 +26,16 @@ public class PlaylistController: Controller {
         return CreatedAtAction(nameof(Get), new { id = playlist.Id }, playlist);
     }
 
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Playlist>> Get(string id) {
+        var playlist = await _mongoDbService.GetAsyncId(id);
+        if (playlist == null) {
+            return NotFound();
+        }
+        return playlist;
+    }
+    
+
     [HttpPut("{id}")]
 
     public async Task<ActionResult> AddToPlaylist(string id, [FromBody] string Items) {
