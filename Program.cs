@@ -1,9 +1,19 @@
-var builder = WebApplication.CreateBuilder(args);
+
+using Grupp4.Services;
+using Grupp4.Models;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using MongoDB.Driver;
+
+// Create application builder (see developer notes at end of file)
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.Configure<MongoDbOptions>(builder.Configuration.GetSection("SampleTrainingDb"));
+builder.Services.AddSingleton<GradeService>();
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
