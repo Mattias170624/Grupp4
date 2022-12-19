@@ -22,9 +22,11 @@ public class Planets {
     [JsonPropertyName("hasRings")]
     public bool HasRings { get; set; }
 
-    public List<string> mainAtmoshpere { get; set; } = null!;
+    [BsonElement("mainAtmosphere")]
+    [JsonPropertyName("mainAtmosphere")]
+    public List<string> MainAtmosphere {get; set;} = null!;
 
     [BsonElement("surfaceTemperatureC")]
     [JsonPropertyName("surfaceTemperatureC")]
-    public List<string> SurfaceTemperatureC { get; set; } = null!;
+    public SurfaceTemperatureC surfaceTemperatureC {get; set;} = null!;
 }

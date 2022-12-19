@@ -26,9 +26,20 @@ public class PlanetController: Controller {
         return CreatedAtAction(nameof(Get), new {id = planets._id}, planets);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> AddToPlanets(string id, [FromBody] string planetId) {
-        await _planetDBService.AddToPlanetsAsync(id, id);
+    [HttpPut("{id:length(24)}")]
+    public async Task<IActionResult> Update(string id, [FromBody] Planets updatedPlanet)
+    {
+        var planet = await _planetDBService.GetAsync(id);
+
+        if (planet is null)
+        {
+            return NotFound();
+        }
+
+        updatedPlanet._id = planet._id;
+
+        await _planetDBService.UpdateAsync(id, updatedPlanet);
+
         return NoContent();
     }
 

@@ -20,19 +20,18 @@ public class PlanetDBService {
         return;
     }
 
+    public async Task<Planets?> GetAsync(string id) =>
+        await _planetsCollection.Find(planet => planet._id == id).FirstOrDefaultAsync();
+
     public async Task<List<Planets>> GetAsync() {
         return await _planetsCollection.Find(new BsonDocument()).ToListAsync();
     }
 
-    public async Task AddToPlanetsAsync(string id, string movieId) {
-        FilterDefinition<Planets> filter = Builders<Planets>.Filter.Eq("Id", id);
-        UpdateDefinition<Planets> update = Builders<Planets>.Update.AddToSet<string>("movieId", movieId);
-        await _planetsCollection.UpdateOneAsync(filter, update);
-        return;
-    }
+    public async Task UpdateAsync(string id, Planets updatedPlanet) =>
+    await _planetsCollection.ReplaceOneAsync(planet => planet._id == id, updatedPlanet);
 
     public async Task DeleteAsync(string id) {
-        FilterDefinition<Planets> filter = Builders<Planets>.Filter.Eq("Id", id);
+        FilterDefinition<Planets> filter = Builders<Planets>.Filter.Eq("_id", id);
         await _planetsCollection.DeleteOneAsync(filter);
         return;
     }
