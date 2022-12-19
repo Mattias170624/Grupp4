@@ -20,6 +20,19 @@ public class PlanetController: Controller {
         return await _planetDBService.GetAsync();
     }
 
+    [HttpGet("{id:length(24)}")]
+    public async Task<ActionResult<Planets>> Get(string id)
+    {
+        var planet = await _planetDBService.GetAsync(id);
+
+        if (planet is null)
+        {
+            return NotFound();
+        }
+
+        return planet;
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Planets planets) {
         await _planetDBService.CreateAsync(planets);
