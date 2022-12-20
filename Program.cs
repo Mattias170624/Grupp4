@@ -9,40 +9,42 @@ builder.Services.Configure<PlanetDBSettings>(builder.Configuration.GetSection("P
 builder.Services.AddSingleton<PlanetDBService>();
 
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
-
 builder.Services.AddSingleton<MongoDbService>();
 
-
+builder.Services.Configure<GradeDbSettings>(builder.Configuration.GetSection("SampleTrainingDb"));
+builder.Services.AddSingleton<GradeService>();
 
 
 // Add services to the container.
-/*
-
-// add mongoclient
-MongoClient client_Amir = new MongoClient("mongodb+srv://Amir:wjbn7WrAW3m5RrpU@amircluster.bux2ihe.mongodb.net/?retryWrites=true&w=majority");
-
-List<string> databases = client_Amir.ListDatabaseNames().ToList();
-*/
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "Group 4 Api",
-        Description = "This is a school project",
-        TermsOfService = new Uri("https://example.com/terms"),
+        Title = "Grupp 4 API",
+        Description = "An ASP.NET Core Web API for managing Movies, Restaurant and sales",
+        TermsOfService = new Uri("https://ecample.com/terms"),
         Contact = new OpenApiContact
         {
-            Name = "AAMMM",
-            Url = new Uri("https://aammm.com/contact")
+            Name = "Grupp1",
+            Url = new Uri("https://example.com/contact"),
+
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://example.com/license")
         }
     });
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+    // Use Reflection to build XML-filename matching of the web API project.
+    var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+
 });
 
 var app = builder.Build();

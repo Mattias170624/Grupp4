@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Grupp4.Models;
 
-public class Playlist 
+public class Playlist
 {
     /// <summary>each id is unique</summary>
     [BsonId]
