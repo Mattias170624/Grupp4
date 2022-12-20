@@ -47,5 +47,4 @@ public class GradeController : Controller
         await _gradeService.DeleteAsync(id);
         return NoContent();
     }
-
 }

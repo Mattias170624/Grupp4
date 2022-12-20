@@ -27,24 +27,22 @@ public class GradeService
         return await _gradesCollection.Find(filter).FirstOrDefaultAsync();
     }
 
-    public async Task CreateAsync(GradeModel grade)
+    public async Task<GradeModel?> CreateAsync(GradeModel grade)
     {
         await _gradesCollection.InsertOneAsync(grade);
-        return;
+        return grade;
     }
 
-    public async Task AddScoreAsync(string id, ScoreModel score)
+    public async Task<UpdateResult> AddScoreAsync(string id, ScoreModel score)
     {
         FilterDefinition<GradeModel> filter = Builders<GradeModel>.Filter.Eq("Id", id);
         UpdateDefinition<GradeModel> update = Builders<GradeModel>.Update.AddToSet<ScoreModel>("Scores", score);
-        await _gradesCollection.UpdateOneAsync(filter, update);
-        return;
+        return await _gradesCollection.UpdateOneAsync(filter, update);
     }
 
-    public async Task DeleteAsync(string id)
+    public async Task<DeleteResult> DeleteAsync(string id)
     {
         FilterDefinition<GradeModel> filter = Builders<GradeModel>.Filter.Eq("Id", id);
-        await _gradesCollection.DeleteOneAsync(filter);
-        return;
+        return await _gradesCollection.DeleteOneAsync(filter);
     }
 }
