@@ -1,21 +1,40 @@
-
-using Grupp4.Services;
 using Grupp4.Models;
+using Grupp4.Services;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using MongoDB.Driver;
 
-// Create application builder (see developer notes at end of file)
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<PlanetDBSettings>(builder.Configuration.GetSection("PlanetDB"));
+builder.Services.AddSingleton<PlanetDBService>();
 
-builder.Services.Configure<MongoDbOptions>(builder.Configuration.GetSection("SampleTrainingDb"));
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddSingleton<MongoDbService>();
+
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("SampleTrainingDb"));
 builder.Services.AddSingleton<GradeService>();
 
+
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Group 4 Api",
+        Description = "This is a school project",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "AAMMM",
+            Url = new Uri("https://aammm.com/contact")
+        }
+    });
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 var app = builder.Build();
 
