@@ -12,7 +12,8 @@ builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Mo
 
 builder.Services.AddSingleton<MongoDbService>();
 
-
+builder.Services.Configure<MoviesDBSettings>(builder.Configuration.GetSection("MoviesDB"));
+builder.Services.AddSingleton<MoviesDBService>();
 
 
 // Add services to the container.
