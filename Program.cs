@@ -11,6 +11,9 @@ builder.Services.AddSingleton<PlanetDBService>();
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<MongoDbService>();
 
+builder.Services.Configure<MoviesDBSettings>(builder.Configuration.GetSection("MoviesDB"));
+builder.Services.AddSingleton<MoviesDBService>();
+
 builder.Services.Configure<GradeDbSettings>(builder.Configuration.GetSection("SampleTrainingDb"));
 builder.Services.AddSingleton<GradeService>();
 
