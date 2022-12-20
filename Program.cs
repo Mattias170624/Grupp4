@@ -8,11 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<PlanetDBSettings>(builder.Configuration.GetSection("PlanetDB"));
 builder.Services.AddSingleton<PlanetDBService>();
 
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddSingleton<MongoDbService>();
+
 builder.Services.Configure<GradeDbSettings>(builder.Configuration.GetSection("SampleTrainingDb"));
 builder.Services.AddSingleton<GradeService>();
 
-builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
-builder.Services.AddSingleton<MongoDbService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -25,17 +26,17 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "Grupp 4 API",
-        Description = "ASP.NET Web API for Playlists, Grades and Planets.",
-        TermsOfService = new Uri("https://example.com/terms"),
+        Description = "An ASP.NET Core Web API for managing Movies, Restaurant and sales",
+        TermsOfService = new Uri("https://ecample.com/terms"),
         Contact = new OpenApiContact
         {
-            Name = "Grupp4",
+            Name = "Grupp1",
             Url = new Uri("https://example.com/contact"),
 
         },
         License = new OpenApiLicense
         {
-            Name = "AAMMM",
+            Name = "Example License",
             Url = new Uri("https://example.com/license")
         }
     });
