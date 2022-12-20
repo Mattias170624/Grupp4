@@ -6,10 +6,12 @@ namespace Grupp4.Models;
 
 public class Playlist 
 {
+    /// <summary>each id is unique</summary>
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
+    /// <summary>each user has a username</summary>
     [BsonElement("username")]
     [JsonPropertyName("username")]
     public string Username { get; set; } = null!;
