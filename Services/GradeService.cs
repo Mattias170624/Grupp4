@@ -9,11 +9,11 @@ public class GradeService
 {
     private readonly IMongoCollection<GradeModel> _gradesCollection;
 
-    public GradeService(IOptions<MongoDbSettings> mongoDbSettings)
+    public GradeService(IOptions<GradeDbSettings> gradeDbSettings)
     {
-        MongoClient client = new MongoClient(mongoDbSettings.Value.ConnectionString);
-        IMongoDatabase database = client.GetDatabase(mongoDbSettings.Value.DatabaseName);
-        _gradesCollection = database.GetCollection<GradeModel>(mongoDbSettings.Value.CollectionName);
+        MongoClient client = new MongoClient(gradeDbSettings.Value.ConnectionString);
+        IMongoDatabase database = client.GetDatabase(gradeDbSettings.Value.DatabaseName);
+        _gradesCollection = database.GetCollection<GradeModel>(gradeDbSettings.Value.CollectionName);
     }
 
     public async Task<List<GradeModel>> GetAsync2()

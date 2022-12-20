@@ -21,24 +21,6 @@ public class PlaylistController: Controller {
         return await _mongoDbService.GetAsync();
     }
 
-    /// <summary>Create a playlist</summary>
-    /// <param name="Playlist"></param>
-    /// <returns>New playlist created.</returns>
-    /// <remarks>
-    /// Sample request:
-    ///
-    ///     POST /playlist
-    ///     {
-    ///        "id": "string",     
-    ///        "username": "string",
-    ///        "items": [
-    ///         "string"         
-    ///        ]
-    ///     }
-    ///
-    /// </remarks>
-    /// <response code="201">Returns the newly created playlist</response>
-    /// <response code="400">If the item is null</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
