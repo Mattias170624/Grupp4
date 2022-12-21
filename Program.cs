@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<PlanetDBSettings>(builder.Configuration.GetSection("PlanetDB"));
 builder.Services.AddSingleton<PlanetDBService>();
 
-builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
-builder.Services.AddSingleton<MongoDbService>();
+builder.Services.Configure<PlaylistDBSettings>(builder.Configuration.GetSection("PlaylistDB"));
+builder.Services.AddSingleton<PlaylistDBService>();
 
 builder.Services.Configure<MoviesDBSettings>(builder.Configuration.GetSection("MoviesDB"));
 builder.Services.AddSingleton<MoviesDBService>();

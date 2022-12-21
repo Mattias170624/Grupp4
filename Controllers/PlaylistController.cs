@@ -9,16 +9,16 @@ namespace Grupp4.Controllers;
 [Route("api/[controller]")]
 public class PlaylistController: Controller {
 
-    private readonly MongoDbService _mongoDbService;
+    private readonly PlaylistDBService _PlaylistDBService;
 
-    public PlaylistController(MongoDbService mongoDbService) {
-        _mongoDbService = mongoDbService;
+    public PlaylistController(PlaylistDBService playlistDBServic) {
+        _PlaylistDBService = playlistDBServic;
     }
 
     /// <summary>Get all playlists</summary>
     [HttpGet]
     public async Task<List<Playlist>> Get() {
-        return await _mongoDbService.GetAsync();
+        return await _PlaylistDBService.GetAsync();
     }
 
     /// <summary>Create a playlist</summary>
@@ -43,14 +43,14 @@ public class PlaylistController: Controller {
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Post([FromBody] Playlist playlist) {
-        await _mongoDbService.CreateAsync(playlist);
+        await _PlaylistDBService.CreateAsync(playlist);
         return CreatedAtAction(nameof(Get), new { id = playlist.Id }, playlist);
     }
 
     /// <summary>Get a specific playlist from an Id</summary>
     [HttpGet("{id}")]
     public async Task<ActionResult<Playlist>> Get(string id) {
-        var playlist = await _mongoDbService.GetAsyncId(id);
+        var playlist = await _PlaylistDBService.GetAsyncId(id);
         if (playlist == null) {
             return NotFound();
         }
@@ -60,14 +60,14 @@ public class PlaylistController: Controller {
     /// <summary>Add a movie to a playlist</summary>
     [HttpPut("{id}")]
     public async Task<ActionResult> AddToPlaylist(string id, [FromBody] string Items) {
-        await _mongoDbService.AddToPlaylistAsync(id, Items);
+        await _PlaylistDBService.AddToPlaylistAsync(id, Items);
         return NoContent();
     }
 
     /// <summary>Delete a playlist</summary>
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(string id) {
-        await _mongoDbService.DeleteAsync(id);
+        await _PlaylistDBService.DeleteAsync(id);
         return NoContent();
     }
 
