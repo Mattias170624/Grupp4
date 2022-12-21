@@ -2,7 +2,7 @@
 
 ### Mattias
 
-### Milad MoviesController.cs MongoDBSettingsmil.cs Movies.cs MongoDBServicemil.cs Programmil.cs appsettingsmil.json
+### Milad MoviesController.cs MoviesDBSettings.cs Movies.cs MoviesDBService.cs Program.cs appsettings.json
 
 ### Amir PlaylistController.cs PlaylistDBSettings.cs Playlist.cs PlaylistDBService.cs program.cs appsettings.json
 
