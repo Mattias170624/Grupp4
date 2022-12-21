@@ -1,6 +1,6 @@
 # Grupp4
 
-### Mattias
+### Mattias GradeController.cs, GradeModel.cs, ScoreModel.cs, GradeDbSettings.cs, GradeService.cs, appsettings.json
 
 ### Milad MoviesController.cs MoviesDBSettings.cs Movies.cs MoviesDBService.cs Program.cs appsettings.json
 
