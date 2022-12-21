@@ -24,6 +24,12 @@ public class MoviesDBService {
         return await _movieCollection.Find(new BsonDocument()).ToListAsync();
     }
 
+     public async Task<Movies> GetAsyncId(string id)
+    {
+        FilterDefinition<Movies> filter = Builders<Movies>.Filter.Eq("Id", id);
+        return await _movieCollection.Find(filter).FirstOrDefaultAsync();
+    }
+
     public async Task AddToMoviesAsync(string id, string movieId) {
         FilterDefinition<Movies> filter = Builders<Movies>.Filter.Eq("Id", id);
         UpdateDefinition<Movies> update = Builders<Movies>.Update.AddToSet<string>("movieId", movieId);
