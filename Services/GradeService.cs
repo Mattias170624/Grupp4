@@ -16,7 +16,7 @@ public class GradeService
         _gradesCollection = database.GetCollection<GradeModel>(gradeDbSettings.Value.CollectionName);
     }
 
-    public async Task<List<GradeModel>> GetAsync2()
+    public async Task<List<GradeModel>> GetAsync()
     {
         return await _gradesCollection.Find(new BsonDocument()).ToListAsync();
     }
