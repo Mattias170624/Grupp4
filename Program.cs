@@ -29,11 +29,11 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "Grupp 4 API",
-        Description = "An ASP.NET Core Web API for managing Movies, Restaurant and sales",
+        Description = "A school project",
         TermsOfService = new Uri("https://ecample.com/terms"),
         Contact = new OpenApiContact
         {
-            Name = "Grupp1",
+            Name = "Grupp 4",
             Url = new Uri("https://example.com/contact"),
 
         },
